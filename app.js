@@ -1,5 +1,5 @@
-import * as THREE from './link/three.min.js';
-import { GLTFLoader } from './link/GLTFLoader.js';
+import * as THREE from 'three';
+import { GLTFLoader } from 'GLTFLoader';
 
 const canvas = document.querySelector('.webgl');
 const scene = new THREE.Scene();
@@ -8,7 +8,7 @@ const loader = new GLTFLoader();
 loader.load('./scene.glb', function(glb){
     console.log(glb);
     const root = glb.scene;
-    root.scale.set(0.3, 0.3, 0.3);
+    root.scale.set(0.5, 0.5, 0.5);
 
     scene.add(root);
 }, function(xhr){
@@ -34,10 +34,16 @@ const renderer = new THREE.WebGL1Renderer({
     canvas: canvas
 });
 
-renderer.setSize(sizes.width, sizes.height);
+/*renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
-renderer.gammaOutput = true;
+renderer.gammaOutput = true;*/
+
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xfffeee);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 
 function animate(){
     requestAnimationFrame(animate);
